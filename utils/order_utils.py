@@ -1,8 +1,5 @@
 import shift
 from time import sleep 
-import asyncio
-
-import numpy as np
 
 def market_buy(trader: shift.Trader,ticker:str,position: int): # Market Buy 
     order = shift.Order(shift.Order.Type.MARKET_BUY, ticker, position)
@@ -47,10 +44,3 @@ def close_all_positions(trader: shift.Trader,ticker:str): # closes all open posi
         trader.submit_order(order)
         sleep(1)
 
-async def get_sma(trader: shift.Trader,ticker:str,freq:float,window:int): # returns the simple moving average of a ticker 
-    trader.request_sample_prices([ticker],sampling_frequency=freq,sampling_window=window)
-    print("waiting for data....")
-    await asyncio.sleep(freq*window)
-    prices = trader.get_sample_prices(ticker)
-    sma = np.mean(prices)
-    return sma

@@ -8,7 +8,6 @@ from utils.credentials import USERNAME, PASSWORD
 from utils.order_utils import *
 from utils.portfolio_utils import *
 from stratergies.bollinger_bands import bollinger_strat
-import asyncio
 
 def main(argv):
     trader = shift.Trader(USERNAME)
@@ -21,14 +20,10 @@ def main(argv):
         print(e)
 
 
-    start_time = trader.get_last_trade_time()
-    end_time = start_time + timedelta(seconds=30)
-
-    ticker = "AAPL"
-    sma = asyncio.run(get_sma(trader,ticker,1.0,20))
-    print(get_last_price())
-    print(sma)
     
+    ticker = "AAPL"
+    bollinger_strat(trader,ticker)
+
     trader.disconnect()
 
 
