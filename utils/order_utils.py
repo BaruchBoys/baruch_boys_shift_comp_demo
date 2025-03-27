@@ -22,18 +22,15 @@ def get_last_price(trader: shift.Trader,ticker): # returns the last traded price
 
 
 
+def close_all_positions(trader: shift.Trader, ticker: str):
+    sleep(0.5)
+    item = trader.get_portfolio_item(ticker)
+    long_shares = item.get_long_shares()
+    short_shares = item.get_short_shares()
+    if long_shares > 0:
+        print(f"Closing long: Market selling {long_shares} shares of {ticker}")
+        market_sell(trader,ticker,int(long_shares/100))
 
-def close_all_positions(trader: shift.Trader,ticker:str): # closes all open positions for a ticker
-    total_shares_of_ticker = trader.get_portfolio_item(ticker)
-    long_shares = total_shares_of_ticker.get_long_shares()
-    short_shares = total_shares_of_ticker.get_short_shares()
-
-    if long_shares > 0: 
-        print(f"market selling {ticker}: amount of {long_shares} long shares ")
-        order = shift.Order(shift.Order.Type.MARKET_SELL,ticker,int(long_shares/100))
-        trader.submit_order(order)
-    
     if short_shares > 0:
-        print(f"market selling {ticker}: amount of {long_shares} long shares ")
-        order = shift.Order(shift.Order.Type.MARKET_SELL,ticker,int(long_shares/100))
-        trader.submit_order(order)
+        print(f"Closing short: Market buying {short_shares} shares of {ticker}")
+        market_buy(trader,ticker,int(long_shares/100))
