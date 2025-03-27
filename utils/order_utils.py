@@ -20,11 +20,7 @@ def limit_sell(trader: shift.Trader,ticker:str,position:int,price:float): # Limi
 def get_last_price(trader: shift.Trader,ticker): # returns the last traded price 
     return trader.get_last_price(ticker)
 
-def cancel_bid(trader: shift.Trader,ticker:str,position:int,price:float): # cancels bid 
-    print(f"cancelling bid for {ticker} at price {price} and position {position}")
-    order = shift.Order(shift.Order.Type.CANCEL_BID,ticker,position,price)
-    print(order in trader.get_waiting_list())
-    trader.submit_cancellation(order)
+
 
 
 def close_all_positions(trader: shift.Trader,ticker:str): # closes all open positions for a ticker
@@ -36,11 +32,8 @@ def close_all_positions(trader: shift.Trader,ticker:str): # closes all open posi
         print(f"market selling {ticker}: amount of {long_shares} long shares ")
         order = shift.Order(shift.Order.Type.MARKET_SELL,ticker,int(long_shares/100))
         trader.submit_order(order)
-        sleep(1)
     
     if short_shares > 0:
         print(f"market selling {ticker}: amount of {long_shares} long shares ")
         order = shift.Order(shift.Order.Type.MARKET_SELL,ticker,int(long_shares/100))
         trader.submit_order(order)
-        sleep(1)
-

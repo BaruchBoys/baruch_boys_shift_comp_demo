@@ -12,7 +12,7 @@ def bollinger_strat(trader,ticker):
 
     #Trading Session 
     start_time = trader.get_last_trade_time()
-    end_time = start_time + timedelta(hours=5)
+    end_time = start_time + timedelta(minutes=10)
 
     #Main Loop 
     while trader.get_last_trade_time() < end_time:
