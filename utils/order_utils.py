@@ -1,5 +1,5 @@
 import shift
-from time import sleep 
+import asyncio
 
 def market_buy(trader: shift.Trader,ticker:str,position: int): # Market Buy 
     order = shift.Order(shift.Order.Type.MARKET_BUY, ticker, position)
@@ -22,9 +22,8 @@ def get_last_price(trader: shift.Trader,ticker): # returns the last traded price
 
 
 
-def close_all_positions(trader: shift.Trader, ticker: str):
-    sleep(0.5)
-    item = trader.get_portfolio_item(ticker)
+async def close_all_positions(trader,ticker,item):
+    await asyncio.sleep(0.5)
     long_shares = item.get_long_shares()
     short_shares = item.get_short_shares()
     if long_shares > 0:
@@ -33,4 +32,4 @@ def close_all_positions(trader: shift.Trader, ticker: str):
 
     if short_shares > 0:
         print(f"Closing short: Market buying {short_shares} shares of {ticker}")
-        market_buy(trader,ticker,int(long_shares/100))
+        market_buy(trader,ticker,int(short_shares/100))
