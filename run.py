@@ -19,12 +19,10 @@ async def process_ticker(trader, ticker, data, h):
     item = trader.get_portfolio_item(ticker)
     long_shares = item.get_long_shares()
     short_shares = item.get_short_shares()
-    threshold = 500
+    threshold = 100
     await asyncio.sleep(0.5)
     print(f"{ticker} has {short_shares} short shares and {long_shares} long shares:")
-    if long_shares >= threshold or short_shares >= threshold:
-        await close_all_positions(trader, ticker,item)
-        return
+
 
     p_fluc = data["p_fluc"]
     last = data["last_price"]
@@ -41,10 +39,21 @@ async def process_ticker(trader, ticker, data, h):
 
     ask_price = bp.get_ask_price() + spread
     bid_price = bp.get_bid_price() - spread
+    if long_shares >= threshold:
+        await close_all_limit_positions(trader, ticker,item,ask_price,"sell")
+        return
+    elif short_shares >= threshold:
+        await close_all_limit_positions(trader, ticker,item,bid_price,"buy")
+        return
 
+
+
+
+
+    position_size = 3
     if ask_price > bid_price:
-        limit_sell(trader, ticker, 3, ask_price)
-        limit_buy(trader, ticker, 3, bid_price)
+        limit_sell(trader, ticker, position_size, ask_price)
+        limit_buy(trader, ticker, position_size, bid_price)
 
 async def main():
     trader = shift.Trader(USERNAME)

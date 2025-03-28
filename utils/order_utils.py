@@ -33,3 +33,17 @@ async def close_all_positions(trader,ticker,item):
     if short_shares > 0:
         print(f"Closing short: Market buying {short_shares} shares of {ticker}")
         market_buy(trader,ticker,int(short_shares/100))
+
+
+async def close_all_limit_positions(trader,ticker,item,price,type):
+    await asyncio.sleep(0.5)
+    long_shares = item.get_long_shares()
+    short_shares = item.get_short_shares()
+    if long_shares > 0 and type == "sell":
+        print(f"Closing long: limit selling {long_shares} shares of {ticker}")
+        limit_sell(trader,ticker,int(long_shares/100),price)
+
+    if short_shares > 0 and type == "long":
+        print(f"Closing short: limit buying {short_shares} shares of {ticker}")
+        limit_buy(trader,ticker,int(short_shares/100),price)
+
