@@ -1,19 +1,20 @@
 import asyncio
 import shift
 
-tickers_dict = {}  
 
+tickers_dict = {}
 async def fetch_data(trader: shift.Trader, ticker): 
-    global tickers_dict 
+    global tickers_dict  
+    tickers_dict.clear()
     ticker_price = []
-    max_tries = 20
+    max_tries = 10
     tries = 0
     while tries <= max_tries: 
         current_price = trader.get_last_price(ticker)
 
         if current_price == 0.0 or current_price in ticker_price: 
              tries += 1
-             await asyncio.sleep(0.8) 
+             await asyncio.sleep(0.5) 
              continue
         
         ticker_price.append(current_price)
