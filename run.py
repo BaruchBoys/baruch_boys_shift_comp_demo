@@ -71,8 +71,8 @@ async def main():
 
     tickers_list = trader.get_stock_list()
     start_time = datetime.now()
-    end_time = start_time + timedelta(minutes=30)
-    upper_bound = 7
+    end_time = start_time + timedelta(hours=5)
+    upper_bound = 8
     lower_bound = 5
     loop_count = 0
     order_table = []
@@ -80,7 +80,7 @@ async def main():
         loop_count+=1
         print(f"Loop {loop_count} started at {datetime.now().strftime('%H:%M:%S')}")
         pickens_dict = await fetching_pickens_data(trader, tickers_list)
-        print(f"Fetched Pickens data at {datetime.now().strftime('%H:%M:%S')}")
+        print(f"Fetch Pickens Data at {datetime.now()} until {end_time}")
 
         tasks = [
             process_ticker(trader, ticker, pickens_dict[ticker],upper_bound,lower_bound,order_table)
@@ -105,7 +105,6 @@ async def main():
 
     trader.disconnect()
     print("Session complete. Disconnected.")
-
 
 if __name__ == "__main__":
     asyncio.run(main())
