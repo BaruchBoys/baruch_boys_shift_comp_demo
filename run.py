@@ -71,11 +71,11 @@ async def main():
     tickers_list = trader.get_stock_list()
     start_time = datetime.now()
     end_time = start_time + timedelta(minutes=30)
-    upper_bound = 6
+    upper_bound = 7
     lower_bound = 5
     loop_count = 0
     order_table = []
-    while trader.get_portfolio_summary().get_total_shares() < 20000:
+    while trader.get_portfolio_summary().get_total_shares() < 500000:
         loop_count+=1
         print(f"Loop {loop_count} started at {datetime.now().strftime('%H:%M:%S')}")
         pickens_dict = await fetching_pickens_data(trader, tickers_list)
