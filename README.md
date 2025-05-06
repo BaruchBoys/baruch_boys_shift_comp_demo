@@ -23,6 +23,6 @@ This repository contains the code and methodology used for the **Stevens High-Fr
 - Data structures for real-time signal processing
 - Custom logic for automated trading & position sizing
 
-## 🧑‍💻 Author
+## Author
 
 Programmed by Indranil Biswas, with research and implementation support from David Fang, Harvey Huang, and Yumin Choi as part of the Stevens HFTC Competition (Spring 2025).
