@@ -25,4 +25,4 @@ This repository contains the code and methodology used for the **Stevens High-Fr
 
 ## Author
 
-Programmed by Indranil Biswas, with research from Harvey Hoang, David Fang, and Yumin Choi as part of the Stevens HFTC Competition (Spring 2025).
+Programmed by Indranil Biswas, with algorithms research from Harvey Hoang, portfolio optimization from David Fang, and execution order flow from Yumin Choi as part of the Stevens HFTC Competition (Spring 2025).
